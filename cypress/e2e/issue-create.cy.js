@@ -122,7 +122,7 @@ describe("Issue create", () => {
     });
   });
 
-  it("Should create a custom issue using andom data plugin and validate its visibility", () => {
+  it("Should create a custom issue using random data plugin and validate its visibility", () => {
     cy.get(iscr).within(() => {
       const randomDescription = faker.lorem.words(5);
       const randomTitle = faker.lorem.word();
