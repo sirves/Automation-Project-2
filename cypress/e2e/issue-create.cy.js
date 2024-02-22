@@ -122,7 +122,7 @@ describe("Issue create", () => {
     });
   });
 
-  it("Should create a custom issue using andom data plugin and validate its visibility", () => {
+  it("Should create a custom issue using random data plugin and validate its visibility", () => {
     cy.get(iscr).within(() => {
       const randomDescription = faker.lorem.words(5);
       const randomTitle = faker.lorem.word();
@@ -149,3 +149,36 @@ describe("Issue create", () => {
     });
   });
 });
+
+export function issueCreate() {
+  it('Should create a custom issue using random data plugin and validate its visibility', () => {
+    cy.get(iscr).within(() => {
+        const title = 'input[name="title"]';
+        const type = '[data-testid="select:type"]';
+        const submit = 'button[type="submit"]';
+        const editdesc = '.ql-editor';
+      const randomDescription = faker.lorem.words(5);
+      const randomTitle = faker.lorem.word();
+      cy.get(editdesc).type(randomDescription);
+      cy.get(editdesc).should('have.text', randomDescription);
+      cy.get(title).type(randomTitle);
+      cy.get(title).should('have.value', randomTitle);
+      cy.get(type).click();
+      cy.get('[data-testid="icon:task"]')
+        .wait(1000)
+        .trigger('mouseover')
+        .trigger('click');
+      cy.get('[data-testid="icon:task"]').should('be.visible');
+      cy.get('[data-testid="select:priority"]').click('bottomRight');
+      cy.get('[data-testid="select-option:Low"]').click();
+      cy.get('[data-testid="select:priority"]').should('have.text', 'Low');
+      cy.get('[data-testid="form-field:reporterId"]')
+        .should('be.visible')
+        .click();
+      cy.get('[data-testid="select-option:Baby Yoda"]')
+        .should('be.visible')
+        .click();
+      cy.get(submit).click();
+    });
+  });
+}
