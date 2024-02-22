@@ -150,7 +150,6 @@ describe("Issue create", () => {
   });
 });
 
-export function issueCreate() {
   it('Should create a custom issue using random data plugin and validate its visibility', () => {
     cy.get(iscr).within(() => {
         const title = 'input[name="title"]';
@@ -181,4 +180,3 @@ export function issueCreate() {
       cy.get(submit).click();
     });
   });
-}
