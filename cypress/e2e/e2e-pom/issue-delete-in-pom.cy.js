@@ -16,16 +16,16 @@ describe('Issue delete', () => {
   const issueTitle = 'This is an issue of type: Task.';
 
   it('Should delete issue successfully', () => {
-    IssueModal.clickDeleteButton
-    IssueModal.confirmDeletion
+    IssueModal.clickDeleteButton()
+    IssueModal.confirmDeletion()
     IssueModal.ensureIssueIsNotVisibleOnBoard
   });
 
   it('Should cancel deletion process successfully', () => {
     IssueModal.ensureIssueIsVisibleOnBoard
-    IssueModal.clickDeleteButton
-    IssueModal.cancelDeletion
-    IssueModal.closeDetailModal
+    IssueModal.clickDeleteButton()
+    IssueModal.cancelDeletion()
+    IssueModal.closeDetailModal()
     IssueModal.validateIssueVisibilityState
   });
 });
