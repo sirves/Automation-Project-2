@@ -17,9 +17,17 @@ describe('Issue delete', () => {
 
   it('Should delete issue successfully', () => {
     //add steps to delete issue
+    IssueModal.clickDeleteButton
+    IssueModal.confirmDeletion
+    IssueModal.ensureIssueIsNotVisibleOnBoard
   });
 
   it('Should cancel deletion process successfully', () => {
     //add steps to start deletion proces but cancel it
+    IssueModal.ensureIssueIsVisibleOnBoard
+    IssueModal.clickDeleteButton
+    IssueModal.cancelDeletion
+    IssueModal.closeDetailModal
+    IssueModal.validateIssueVisibilityState
   });
 });
