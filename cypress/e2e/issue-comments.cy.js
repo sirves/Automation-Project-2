@@ -86,7 +86,7 @@ describe('Issue comments creating, editing and deleting', () => {
     IssueModal.deleteCommentAndAssertDeletion();
   });
 
-  it.only('Should add, edit and delete a comment successfully', () => {
+  it('Should add, edit and delete a comment successfully', () => {
     const findAddCommentField = () => cy.contains('Add a comment...').click();
     const addCommentFieldVisible = () =>
       cy.contains('Add a comment...').should('exist');
