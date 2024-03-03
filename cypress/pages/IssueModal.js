@@ -14,6 +14,10 @@ class IssueModal {
         this.cancelDeletionButtonName = "Cancel";
         this.confirmationPopup = '[data-testid="modal:confirm"]';
         this.closeDetailModalButton = '[data-testid="icon:close"]';
+        this.issueCommentField = '[data-testid="issue-comment"]';
+        this.textArea = 'textarea[placeholder="Add a comment..."]';
+        this.comment = 'Frog was sitting on the stone';
+        this.newComment = 'The stork came and took the frog away';
     }
 
     getIssueModal() {
@@ -115,6 +119,44 @@ class IssueModal {
     closeDetailModal() {
         cy.get(this.issueDetailModal).get(this.closeDetailModalButton).first().click();
         cy.get(this.issueDetailModal).should('not.exist');
+    }
+
+    findAddCommentField() {
+        cy.contains('Add a comment...').click();
+    }
+
+    addCommentAndSave() {
+        cy.get(this.textArea).type(this.comment);
+        cy.contains('button', 'Save').click().should('not.exist');
+    }
+
+    commentExist() {
+        cy.contains('Add a comment...').should('exist');
+        cy.get(this.issueCommentField).should('contain', this.comment);
+    }
+
+    editCommentAndAssertVisibility() {
+        cy.contains('Edit').click().should('not.exist');
+        cy.get(this.textArea)
+          .clear()
+          .type(this.newComment);
+        cy.contains('button', 'Save').click().should('not.exist');
+        cy.get(this.issueCommentField).should('contain', this.newComment);
+    }
+
+    deleteCommentAndAssertDeletion() {
+        cy.contains('Delete').click();
+        cy.get(this.confirmationPopup).within(() => {
+            cy.contains('Are you sure you want to delete this comment?')
+                .should('be.visible');
+                cy.contains("Once you delete, it's gone for good.")
+                .should('be.visible');
+            cy.contains('button', 'Cancel');
+            cy.contains('button', 'Delete comment').click();
+            cy.get(this.confirmationPopup).should('not.exist');
+            cy.get(this.newComment)
+                .should('not.exist');
+        });
     }
 }
 
